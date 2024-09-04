@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoChats</title>
+    <style>
+        body {
+            font-family: Helvetica, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #ffffff;
+        }
+
+        .container {
+            text-align: center;
+            color: #000000;
+            margin-top: 20px;
+        }
+
+        .form-container {
+            background-color: #eef3f5;
+            padding: 30px;
+            border-radius: 10px;
+            width: 50%;
+            margin: 50px auto;
+        }
+
+        .form-container h2 {
+            color: #696969;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        .form-group2 {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 45%;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: none;
+            font-size: 16px;
+            background-color: #ffffff;
+            color: #000000;
+        }
+        .form-group2 input, .form-group2 select, .form-group2 textarea {
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: none;
+            font-size: 16px;
+            background-color: #ffffff;
+            color: #000000;
+        }
+        .form-group textarea {
+            width: 100%;
+            height: max-content;
+            padding: 15px;
+            margin: auto;
+            border-radius: 5px;
+            border: none;
+            font-size: 16px;
+            background-color: #ffffff;
+            color: #ffffff;
+            margin: 10px auto;
+        }
+
+        .form-container button {
+            width: 100%;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 5px;
+            border: none;
+            background-color: #28a745;
+            color: #ffffff;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .form-container button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div style="padding: 20px; background-color: #ffffff;">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+                <a href='https://autochats.cloud'>
+                <img src="/images/logo.png" alt="Logo" style="height: 60px;">
+            </a>
+            </div>
+            <div>
+                <a href='https://autochats.cloud/contato'>
+                <img src="/images/contato.png" alt="Logo" style="height: 40px;">
+            </a>
+            </div>
+        </div>
+    </div>
+</header>
+
+<main>
+     <!-- Primeira seção -->
+     <div class="container">
+        <h2>Ofereça atendimento de excelência.</h2>
+        <p>Preencha o formulário abaixo para que possamos retornar com um orçamento.</p>
+    </div>
+
+    <!-- Formulário -->
+    <div class="form-container">
+        <form id="contact-form">
+            <div class="form-group">
+                <input type="text" name="nome" placeholder="Nome completo *" required>
+                <input type="email" name="email" placeholder="E-mail *" required>
+            </div>
+            <div class="form-group">
+                <input type="text" name="telefone" placeholder="Telefone *" required>
+                <input type="text" name="tamanho_empresa" placeholder="Quantidade de funcionários" required> 
+            </div>
+            <div class="form-group2">
+                <input name="message" rows="4" placeholder="Descreva a solução que você necessita *" required></input>
+            </div>
+            <button type="submit">Solicite seu orçamento</button>
+        </form>
+    </div>
+</main>
+
+<script>
+document.getElementById('contact-form').addEventListener('submit', function(event) {
+    event.preventDefault(); // Impede o envio padrão do formulário
+
+    const form = event.target;
+    const data = new FormData(form);
+
+    fetch('https://formspree.io/f/mdknjgnb', {
+        method: 'POST',
+        body: data,
+        headers: {
+            'Accept': 'application/json'
+        }
+    }).then(response => {
+        if (response.ok) {
+            window.location.href = 'https://autochats.cloud/confirmado'; // Redireciona para sua página de confirmação
+        } else {
+            alert('Ocorreu um erro no envio do formulário.');
+        }
+    }).catch(error => {
+        alert('Ocorreu um erro no envio do formulário.');
+    });
+});
+</script>
+
+</body>
+</html>
